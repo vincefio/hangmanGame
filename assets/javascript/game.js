@@ -36,11 +36,22 @@ document.onkeyup = () => {
     //array, repopulating the underlineSpaces string, and having a new string for guessed letters
     //search to see if event.key is equal to any of the letters in currentSong
     //loop through spaceDisplay and if event.key matches any update the songArray
-
+    //console.log('event key ' + event.key)
+    console.log('event key ' + event.key)
     guessedLetters.push(event.key)
-    console.log(guessedLetters)
+    //console.log(spaceDisplay)
+    console.log('guessed letters ' + guessedLetters)
+    //console.log('space display is ' + spaceDisplay + ' ' + typeof spaceDisplay);
+    //create another loop to check if any of guessedLetters fits in
+    /*for(let j = 0; j < guessedLetters.length; j++){
+       //if statement to see if spacedisplay[i] is equal to any guessed guessed
+       console.log('guessed letters ' + guessedLetters.length)
 
+       //console.log(j)
+     }*/
     for(let i = 0; i < spaceDisplay.length; i++){
+
+
       if(event.key == spaceDisplay[i]){
         //newUnderlineSpaces.push(event.key)
         newUnderlineSpaces[i] = event.key
@@ -48,7 +59,18 @@ document.onkeyup = () => {
       else{
         //newUnderlineSpaces.push(" ")
         newUnderlineSpaces[i] = " "
+        //create another loop to check if any of guessedLetters fits in
+       for(let j = 0; j < guessedLetters.length; j++){
+          //if statement to see if spacedisplay[i] is equal to any guessed guessed
+          console.log('guessed letters ' + guessedLetters)
+          if(spaceDisplay[i] == guessedLetters[j]){
+            newUnderlineSpaces[i] = guessedLetters[j]
+          }
+          //console.log(j)
+        }
       }
+
+
     }
     console.log('newUnderlineSpaces ' + newUnderlineSpaces)
   }
