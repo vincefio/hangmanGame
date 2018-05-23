@@ -74,11 +74,6 @@ function displayLettersGuessed(){
 }//else if the letter has been guessed before
 else if (guessedLetters.indexOf(event.key) !== -1){
   console.log('this letter has been guessed before')
-  //console.log(event.key + ' IS in  the word')
-  //for(let i = 0; i < guessedLetters.length; i++){
-  //}
-  //console.log('displayLettersGuessed ' + guessedLetterString)
-  //guesses --
 
 }
   initialSettings()
@@ -115,23 +110,21 @@ function pressKey(){
     //console.log('event key ' + event.key)
     underlineSpaces = ""
     //console.log('underlineSpaces ' + underlineSpaces)
-
+    //guessedLetters.push(event.key)
 
     if(currentSong.indexOf(event.key) == -1){
       console.log(event.key + ' is not in this word')
-    }else //otherwise rerender underlineSpaces
-    {
-      //console.log('guess is correct')
-      if(correctGuesses.indexOf(event.key) == -1){
+    }else{
+      console.log(event.key + ' IS in the word')
+    }//otherwise rerender underlineSpaces
+    /*else if(correctGuesses.indexOf(event.key) !== -1){
         correctGuesses.push(event.key)
         console.log('correct guesses ' + correctGuesses + ' ' + underlineSpaces.length)
-      //  console.log(currentSong.length)
-      }
-      displayOriginalSpaces()
-    }
-
+    }*/
     displayLettersGuessed()
-    endCheck()
+    displayOriginalSpaces()
+
+    //endCheck()
   }
 }
 
