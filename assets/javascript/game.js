@@ -59,35 +59,44 @@ function displayOriginalSpaces(){
 
 function displayLettersGuessed(){
   //only do this if the letter has been guessed before
+  //do this if the letter has not been guessed before
   if(guessedLetters.indexOf(event.key) == -1){
+    guessedLetters.push(event.key)
+    //console.log('guessed letters ' + guessedLetters)
+    console.log('this letter has not been guessed before')
     guesses--
-}else{
-  //for(let i = 0; i < guessedLetters.length; i++){
+    //console.log(event.key + ' is not in  the word')
     guessedLetterString += event.key
     guessedLetterString += " "
+
+    guessedDOM = document.getElementById("lettersGuessed")
+    guessedDOM.innerHTML = "<h3>" + guessedLetterString + "</h3>"
+}//else if the letter has been guessed before
+else if (guessedLetters.indexOf(event.key) !== -1){
+  console.log('this letter has been guessed before')
+  //console.log(event.key + ' IS in  the word')
+  //for(let i = 0; i < guessedLetters.length; i++){
   //}
   //console.log('displayLettersGuessed ' + guessedLetterString)
-  guesses --
+  //guesses --
 
-  guessedDOM = document.getElementById("lettersGuessed")
-  guessedDOM.innerHTML = "<h3>" + guessedLetterString + "</h3>"
 }
   initialSettings()
 }
 
 //this doesnt work well
 function endCheck(){
-  if(correctGuesses.length == currentSong.length){
+  /*if(correctGuesses.length == underlineSpaces.length){
     alert('you win! Nice!')
     restartQuestion()
   }
-  else if(guesses == 0 && correctGuesses.length + 1 == currentSong.length){
+  else if(guesses == 0 && underlineSpaces.length + 1 == currentSong.length){
     alert('no more guesses, you win')
     restartQuestion()
-  }else if (guesses == 0 && correctGuesses.length < currentSong.length){
+  }else if (guesses == 0 && underlineSpaces.length < currentSong.length){
     alert('no more guesses, you lose')
     restartQuestion()
-  }
+  }*/
 }
 
 function restartQuestion(){
@@ -107,17 +116,16 @@ function pressKey(){
     underlineSpaces = ""
     //console.log('underlineSpaces ' + underlineSpaces)
 
-    guessedLetters.push(event.key)
 
     if(currentSong.indexOf(event.key) == -1){
       console.log(event.key + ' is not in this word')
     }else //otherwise rerender underlineSpaces
     {
-      console.log('guess is correct')
+      //console.log('guess is correct')
       if(correctGuesses.indexOf(event.key) == -1){
         correctGuesses.push(event.key)
-        console.log('correct guesses ' + correctGuesses + ' ' + correctGuesses.length)
-        console.log(currentSong.length)
+        console.log('correct guesses ' + correctGuesses + ' ' + underlineSpaces.length)
+      //  console.log(currentSong.length)
       }
       displayOriginalSpaces()
     }
