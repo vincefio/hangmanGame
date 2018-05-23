@@ -13,7 +13,24 @@ let underlineSpaces = ""
 let spaceDisplay = []
 //create a new array for letters already guessed
 let guessedLetters = []
+let guessedLetterString = ""
+let guessedDOM
 let correctGuesses = []
+
+let guesses = 10
+let guessDOM
+let wins = 0
+let winDOM
+
+let restartPrompt
+
+function initialSettings(){
+  winDOM = document.getElementById("wins")
+  winDOM.innerHTML = "<h3>" + wins + "</h3>"
+
+  guessDOM = document.getElementById("guesses")
+  guessDOM.innerHTML = "<h3>" + guesses + "</h3>"
+}
 
 function pickSong(){
   //create random number between 0 and 4
@@ -25,21 +42,59 @@ function pickSong(){
 function displayOriginalSpaces(){
   //populate spaces under div if there is a letter and not a space
   for(let i = 0; i < currentSong.length; i++){
-  //  console.log(currentSong.charAt(i));
-    //spaceDisplay.push(currentSong.charAt(i));
-  //  console.log(spaceDisplay)
-    //else if statement for placing letter or space in div
-    if(currentSong.charAt(i) != " "){
-      //spaceDisplay[i]
-      //currentSong.charAt(i)
-      //concatenate a string of underlines
-      underlineSpaces += "__ "
-    }else{
+    //if the letter in current song is present in guessedLetters
+    if(guessedLetters.indexOf(currentSong[i]) !== -1){
+      underlineSpaces += currentSong[i]
+    }//if the letter is a spaces
+    else if(currentSong[i] == " "){
       underlineSpaces += "&nbsp&nbsp&nbsp"
+    }//if the letter in current song is not present in guessletters
+    else{
+      underlineSpaces += "__ "
     }
   }
   wordSpaces = document.getElementById('currentWord')
   wordSpaces.innerHTML = "<h3>" + underlineSpaces + "</h3>"
+}
+
+function displayLettersGuessed(){
+  //only do this if the letter has been guessed before
+  if(guessedLetters.indexOf(event.key) == -1){
+    guesses--
+}else{
+  //for(let i = 0; i < guessedLetters.length; i++){
+    guessedLetterString += event.key
+    guessedLetterString += " "
+  //}
+  //console.log('displayLettersGuessed ' + guessedLetterString)
+  guesses --
+
+  guessedDOM = document.getElementById("lettersGuessed")
+  guessedDOM.innerHTML = "<h3>" + guessedLetterString + "</h3>"
+}
+  initialSettings()
+}
+
+//this doesnt work well
+function endCheck(){
+  if(correctGuesses.length == currentSong.length){
+    alert('you win! Nice!')
+    restartQuestion()
+  }
+  else if(guesses == 0 && correctGuesses.length + 1 == currentSong.length){
+    alert('no more guesses, you win')
+    restartQuestion()
+  }else if (guesses == 0 && correctGuesses.length < currentSong.length){
+    alert('no more guesses, you lose')
+    restartQuestion()
+  }
+}
+
+function restartQuestion(){
+  restartQuestion = confirm('Would You Like to Play Again?')
+  if(restartQuestion == true){
+    alert('start over')
+  }
 }
 
 function pressKey(){
@@ -51,102 +106,40 @@ function pressKey(){
     //console.log('event key ' + event.key)
     underlineSpaces = ""
     //console.log('underlineSpaces ' + underlineSpaces)
-    //console.log('event key ' + event.key)
+
     guessedLetters.push(event.key)
-    //console.log(spaceDisplay)
-    console.log('guessed letters ' + guessedLetters)
-    //console.log('space display is ' + spaceDisplay + ' ' + typeof spaceDisplay);
-    //reset underlineSpaces
-
-
-    for(let i = 0; i < currentSong.length; i++){
-      spaceDisplay.push(currentSong.charAt(i));
-        //currentSong.indexOf(guessedLetters[i]) == -1
-    }
 
     if(currentSong.indexOf(event.key) == -1){
       console.log(event.key + ' is not in this word')
     }else //otherwise rerender underlineSpaces
     {
       console.log('guess is correct')
-      /*for(let i = 0; i < correctGuesses.length; i++){
-        //if guess letter is not in the string
-        if(currentSong.indexOf(guessedLetters[i]) == -1){
-
-        }//otherwise
-        else{}
-      }*/
-      for(let i = 0; i < currentSong.length; i++){
-        //if the letter in current song is present in guessedLetters
-        if(guessedLetters.indexOf(currentSong[i]) !== -1){
-          underlineSpaces += currentSong[i]
-        }//if the letter is a spaces
-        else if(currentSong == " "){
-          underlineSpaces += "&nbsp&nbsp&nbsp"
-        }//if the letter in current song is not present in guessletters
-        else{
-          underlineSpaces += "__ "
-        }
+      if(correctGuesses.indexOf(event.key) == -1){
+        correctGuesses.push(event.key)
+        console.log('correct guesses ' + correctGuesses + ' ' + correctGuesses.length)
+        console.log(currentSong.length)
       }
-    //  console.log(event.key + ' is in the word')
+      displayOriginalSpaces()
     }
 
-
-  //  console.log(spaceDisplay + ' space display')
-    //for(let i = 0; i < .length; i++){
-      //create another for loop to loop through guessedLetters and make new string
-      /*for(let j = 0; j < guessedLetters.length; j++){
-        if(guessedLetters[j] == currentSong[i]){
-          //populate underlineSpaces
-          underlineSpaces += guessedLetters[j].toString()
-        }//else if add space
-        else if(currentSong[i] == " "){
-          underlineSpaces += "&nbsp&nbsp&nbsp"
-        }//else the guessed letter is not there and add empty space
-        else{
-          underlineSpaces += "__ "
-        }
-      }*/
-
-    //  }
-    /*  if(event.key == currentSong.charAt(i)){
-        //newUnderlineSpaces.push(event.key)
-        underlineSpaces.indexOf(i) = event.key
-      }
-      else{
-        //newUnderlineSpaces.push(" ")
-        newUnderlineSpaces[i] = " "
-        //create another loop to check if any of guessedLetters fits in
-       for(let j = 0; j < guessedLetters.length; j++){
-          //if statement to see if spacedisplay[i] is equal to any guessed guessed
-          console.log('guessed letters ' + guessedLetters)
-          if(spaceDisplay[i] == guessedLetters[j]){
-            newUnderlineSpaces[i] = guessedLetters[j]
-          }
-          //console.log(j)
-        }
-      }*/
-
-
-    //}
-    console.log('underlineSpaces ' + underlineSpaces)
-  //  wordSpaces.innerHTML = "<h3>" + newUnderlineSpaces + "</h3>"
-    //console.log('newUnderlineSpaces ' + newUnderlineSpaces)
+    displayLettersGuessed()
+    endCheck()
   }
 }
 
+function startOver(){
+
+}
+  alert('Press Any Key To Start')
+
 document.onkeyup = () => {
+
+  initialSettings()
 
   pickSong()
 
-  //create an array to display spaces for letters, may not be needed
-  let spaceDisplay = []
-
   displayOriginalSpaces();
 
-  let newUnderlineSpaces = []
-
   pressKey()
-
 
 }
