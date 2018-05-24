@@ -24,6 +24,10 @@ let winDOM
 
 let restartPrompt
 
+let correctGuessCount
+let songEndCheck = []
+let spaceCount
+
 function initialSettings(){
   winDOM = document.getElementById("wins")
   winDOM.innerHTML = "<h3>" + wins + "</h3>"
@@ -81,25 +85,36 @@ else if (guessedLetters.indexOf(event.key) !== -1){
 
 //this doesnt work well
 function endCheck(){
-  /*if(correctGuesses.length == underlineSpaces.length){
-    alert('you win! Nice!')
-    restartQuestion()
+  songEndCheck = []
+  spaceCount = 0
+  correctGuessCount = 0
+  //find out how many characters are in current song without spaces
+  for(let i = 0; i < currentSong.length; i++){
+    if(currentSong[i] == " "){
+      spaceCount++
+    }
+    //check to see if current letter has been guessed
+    if(guessedLetters.indexOf(currentSong[i]) !== -1){
+      correctGuessCount ++;
+    }
   }
-  else if(guesses == 0 && underlineSpaces.length + 1 == currentSong.length){
-    alert('no more guesses, you win')
-    restartQuestion()
-  }else if (guesses == 0 && underlineSpaces.length < currentSong.length){
-    alert('no more guesses, you lose')
-    restartQuestion()
-  }*/
+  //console.log('space count ' + spaceCount)
+  //console.log('correct guess count '+ correctGuessCount)
+
+  //criteria to check if game is over
+  if(currentSong.length - spaceCount == correctGuessCount){
+    alert('you win!')
+  }else if (guesses == 0){
+    alert('Sorry, You Lost This Round')
+  }
 }
 
-function restartQuestion(){
+/*function restartQuestion(){
   restartQuestion = confirm('Would You Like to Play Again?')
   if(restartQuestion == true){
     alert('start over')
   }
-}
+}*/
 
 function pressKey(){
   document.onkeyup = (event) => {
@@ -109,29 +124,17 @@ function pressKey(){
     //loop through spaceDisplay and if event.key matches any update the songArray
     //console.log('event key ' + event.key)
     underlineSpaces = ""
-    //console.log('underlineSpaces ' + underlineSpaces)
-    //guessedLetters.push(event.key)
 
-    if(currentSong.indexOf(event.key) == -1){
-      console.log(event.key + ' is not in this word')
-    }else{
-      console.log(event.key + ' IS in the word')
-    }//otherwise rerender underlineSpaces
-    /*else if(correctGuesses.indexOf(event.key) !== -1){
-        correctGuesses.push(event.key)
-        console.log('correct guesses ' + correctGuesses + ' ' + underlineSpaces.length)
-    }*/
     displayLettersGuessed()
     displayOriginalSpaces()
-
-    //endCheck()
+    endCheck()
   }
 }
 
 function startOver(){
 
 }
-  alert('Press Any Key To Start')
+  //alert('Press Any Key To Start')
 
 document.onkeyup = () => {
 
