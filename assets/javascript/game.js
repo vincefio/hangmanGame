@@ -17,7 +17,7 @@ let guessedLetterString = ""
 let guessedDOM
 let correctGuesses = []
 
-let guesses = 10
+let guesses = 13
 let guessDOM
 let wins = 0
 let winDOM
@@ -78,7 +78,6 @@ function displayLettersGuessed(){
 }//else if the letter has been guessed before
 else if (guessedLetters.indexOf(event.key) !== -1){
   console.log('this letter has been guessed before')
-
 }
   initialSettings()
 }
@@ -103,18 +102,23 @@ function endCheck(){
 
   //criteria to check if game is over
   if(currentSong.length - spaceCount == correctGuessCount){
+    wins ++
+    winDOM = document.getElementById("wins")
+    winDOM.innerHTML = "<h3>" + wins + "</h3>"
     alert('you win!')
+    restartQuestion = confirm('Would You Like to Play Again?')
+    if(restartQuestion == true){
+      startOver()
+    }
   }else if (guesses == 0){
     alert('Sorry, You Lost This Round')
+    restartQuestion = confirm('Would You Like to Play Again?')
+    if(restartQuestion == true){
+      startOver()
+    }
   }
 }
 
-/*function restartQuestion(){
-  restartQuestion = confirm('Would You Like to Play Again?')
-  if(restartQuestion == true){
-    alert('start over')
-  }
-}*/
 
 function pressKey(){
   document.onkeyup = (event) => {
@@ -132,7 +136,16 @@ function pressKey(){
 }
 
 function startOver(){
-
+  pickSong()
+  //console.log(currentSong)
+  guessedLetters = []
+  guessedLetterString = ""
+  underlineSpaces = ""
+  guesses = 13
+  displayOriginalSpaces()
+  guessedDOM = document.getElementById("lettersGuessed")
+  guessedDOM.innerHTML = "<h3>" + guessedLetterString + "</h3>"
+  initialSettings()
 }
   //alert('Press Any Key To Start')
 
