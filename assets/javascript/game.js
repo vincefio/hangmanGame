@@ -122,11 +122,7 @@ function endCheck(){
 
 function pressKey(){
   document.onkeyup = (event) => {
-    //create another keyup process of searching for pressed letters in the spaceDisplay
-    //array, repopulating the underlineSpaces string, and having a new string for guessed letters
-    //search to see if event.key is equal to any of the letters in currentSong
-    //loop through spaceDisplay and if event.key matches any update the songArray
-    //console.log('event key ' + event.key)
+
     underlineSpaces = ""
 
     displayLettersGuessed()
