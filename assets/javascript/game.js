@@ -44,6 +44,7 @@ function pickSong(){
 }
 
 function displayOriginalSpaces(){
+
   //populate spaces under div if there is a letter and not a space
   for(let i = 0; i < currentSong.length; i++){
     //if the letter in current song is present in guessedLetters

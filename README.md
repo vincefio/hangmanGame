@@ -1,5 +1,16 @@
 # hangmanGame
 
+Had a great time coding this and feel very proud and accomplished of the end
+result.  Took about 4 days, and learned a lot of things, most importantly to
+keep a cool head at all times.  With patience and persistance any problem can
+be solved.
+
+Good review of string and array methods, especially indexOf.  Also happy with
+the way i was able to separate the functions from the "action" code.  One little
+bug i'd like to fix is that when the game is over the win/lose alert displays
+before the guessed word is updated.  I believe this can be solved with a timeout,
+more on that next week.  On to jQuery!
+
 PSEUDOCODE:
 
 array of different songs
